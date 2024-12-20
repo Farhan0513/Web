@@ -1,0 +1,27 @@
+input[type="text"]
+{
+    border:2px solid blue;
+}
+input[type="password"]
+{
+    border:2px solid gold
+}
+ul > li {
+    color: blueviolet;
+}
+ol > li {
+    color: dodgerblue;
+}
+h2:hover {
+    background-color: cadetblue;
+}
+h1:hover {
+    background-color: sandybrown;
+}
+h1::before {
+    content:"🚀";
+}
+h1::after {
+    content:"*required";
+    color:red;
+}
