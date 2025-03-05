@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genius Lyrics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #ffcc00;
+        }
+
+        .search-container {
+            margin: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 60%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background: #ffcc00;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .lyrics-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .lyrics {
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Genius Lyrics Search</h1>
+    <div class="search-container">
+        <input type="text" id="songInput" placeholder="Enter song title...">
+        <button onclick="searchLyrics()">Search</button>
+    </div>
+    <div class="lyrics-container" id="lyricsContainer">
+        <h2 id="songTitle"></h2>
+        <p class="lyrics" id="lyricsText"></p>
+    </div>
+    <script>
+        const sampleLyrics = {
+            "Reminder": "Every time you try to forget who I am, I'll be right there to remind you again...",
+            "Sidewalks": "I ran out of tears when I was eighteen...",
+            "Losers": "Only losers go to school..."
+        };
+
+        function searchLyrics() {
+            const input = document.getElementById("songInput").value;
+            const lyricsContainer = document.getElementById("lyricsContainer");
+            const songTitle = document.getElementById("songTitle");
+            const lyricsText = document.getElementById("lyricsText");
+
+            if (sampleLyrics[input]) {
+                songTitle.innerText = input;
+                lyricsText.innerText = sampleLyrics[input];
+                lyricsContainer.style.display = "block";
+            } else {
+                alert("Lyrics not found!");
+            }
+        }
+    </script>
+</body>
+
+</html>

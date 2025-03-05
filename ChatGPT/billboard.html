@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billboard Hot 100</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .song-list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .song {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .song:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            font-weight: bold;
+            color: #e63946;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Billboard Hot 100</h1>
+    <ul class="song-list" id="hot100List"></ul>
+    <script>
+        const hot100Songs = [
+            { rank: 1, title: "Timeless", artist: "The Weeknd" },
+            { rank: 2, title: "Not Like Us", artist: "Kendrick Lamar" },
+            { rank: 3, title: "Die With A Smile", artist: "Lady Gaga" },
+            { rank: 4, title: "luther", artist: "Kendrick Lamar" },
+            { rank: 5, title: "Cry For Me", artist: "The Weeknd" },
+        ];
+
+        function displaySongs() {
+            const list = document.getElementById("hot100List");
+            list.innerHTML = "";
+            hot100Songs.forEach(song => {
+                const li = document.createElement("li");
+                li.className = "song";
+                li.innerHTML = `<span class="rank">#${song.rank}</span> - ${song.title} by ${song.artist}`;
+                list.appendChild(li);
+            });
+        }
+
+        displaySongs();
+    </script>
+</body>
+
+</html>
