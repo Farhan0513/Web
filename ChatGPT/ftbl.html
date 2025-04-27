@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Football Game</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: green;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        canvas {
+            background: #006400;
+            border: 5px solid white;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas" width="800" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const player = {
+            x: 50,
+            y: canvas.height / 2 - 25,
+            width: 20,
+            height: 50,
+            color: "white",
+            speed: 5
+        };
+
+        const ball = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 10,
+            dx: 4,
+            dy: 2,
+            color: "white"
+        };
+
+        const keys = {};
+
+        document.addEventListener("keydown", (e) => {
+            keys[e.key] = true;
+        });
+
+        document.addEventListener("keyup", (e) => {
+            keys[e.key] = false;
+        });
+
+        function drawPlayer() {
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fillStyle = ball.color;
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        function update() {
+            if (keys["ArrowUp"] && player.y > 0) player.y -= player.speed;
+            if (keys["ArrowDown"] && player.y + player.height < canvas.height) player.y += player.speed;
+
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            if (ball.y + ball.radius > canvas.height || ball.y - ball.radius < 0) {
+                ball.dy *= -1;
+            }
+
+            // Collision with player
+            if (
+                ball.x - ball.radius < player.x + player.width &&
+                ball.x + ball.radius > player.x &&
+                ball.y > player.y &&
+                ball.y < player.y + player.height
+            ) {
+                ball.dx *= -1;
+                ball.x = player.x + player.width + ball.radius; // prevent sticking
+            }
+
+            // Reset if ball goes off screen
+            if (ball.x < 0 || ball.x > canvas.width) {
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height / 2;
+                ball.dx = -ball.dx;
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPlayer();
+            drawBall();
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+</body>
+
+</html>
